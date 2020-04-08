@@ -1,8 +1,8 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
-const geocode = require("./utils/geocode.js")
-const forecast = require("./utils/forecast.js")
+const geocode = require('./utils/geocode.js')
+const forecast = require('./utils/forecast.js')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -49,22 +49,21 @@ app.get('/help', (req, res) => {
 
 // app.com/weather
 app.get('/weather', (req, res) => {
-	
 	const address = req.query.address
-	
+
 	if (!address) {
 		return res.send({
-			error: 'You must provide an address.'
+			error: 'You must provide an address.',
 		})
 	}
-	geocode(address, (error, { latitude, longitude, location } = {}) => {
+	geocode(address, (error, {latitude, longitude, location} = {}) => {
 		if (error) {
-			return res.send({ error })
+			return res.send({error})
 		}
 
 		forecast(latitude, longitude, (error, forecastData) => {
 			if (error) {
-				return res.send({ error })
+				return res.send({error})
 			}
 
 			res.send({
@@ -73,19 +72,6 @@ app.get('/weather', (req, res) => {
 				address,
 			})
 		})
-	})
-})
-
-app.get('/products', (req, res) => {
-	if (!req.query.search) {
-		return res.send({
-			error: 'You must provide a search term.'
-		})
-	}
-	
-	console.log(req.query.search)
-	res.send({
-		products: []
 	})
 })
 
@@ -110,5 +96,3 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
 	console.log('Server is up on port ' + port)
 })
-
-

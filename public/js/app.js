@@ -6,22 +6,22 @@ const messageTwo = document.querySelector('#message-2')
 //messageOne.textContent = 'banana'
 
 weatherForm.addEventListener('submit', (e) => {
-    e.preventDefault()
+	e.preventDefault()
 
-    const location = search.value
-    const url = '/weather?address=' + location
+	const location = search.value
+	const url = '/weather?address=' + location
 
-    messageOne.textContent = 'Loading...'
-    messageTwo.textContent = ''
+	messageOne.textContent = 'Loading...'
+	messageTwo.textContent = ''
 
-    fetch(url).then((response) => {
-        response.json().then((data) => {
-            if (data.error) {
-                messageOne.textContent = data.error
-            } else {
-                messageOne.textContent = data.location
-                messageTwo.textContent = data.forecast
-            }
-        })
-    })
+	fetch(url).then((response) => {
+		response.json().then((data) => {
+			if (data.error) {
+				messageOne.textContent = data.error
+			} else {
+				messageOne.textContent = data.location
+				messageTwo.textContent = data.forecast
+			}
+		})
+	})
 })
